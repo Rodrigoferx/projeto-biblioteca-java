@@ -34,21 +34,26 @@ public class BdCliente {
     /* ----CLIENTE-> */
     
     // CREATE - Adiciona um registro
+    public class ClienteDAO {
+
+    private static final int NUMERO_COLUNAS = 6;
+
     public void adicionaCliente(Cliente c) throws SQLException {
-        // Prepara conexão p/ receber o comando SQL
-        String sql = "INSERT INTO cliente(nome, data_nasc, sexo, cpf, endereco, fone)"
-                + "VALUES(?, ?, ?, ?, ?, ?)";       
-        PreparedStatement stmt;
-        // stmt recebe o comando SQL
-        stmt = this.conexao.prepareStatement(sql);
-        
-        // Seta os valores p/ o stmt, substituindo os "?"
-        stmt.setString(1, c.getNome());
-        stmt.setString(2, c.getDataNasc());
-        stmt.setString(3, c.getSexo());
-        stmt.setString(4, c.getCpf());
-        stmt.setString(5, c.getEndereco());
-        stmt.setString(6, c.getFone());
+        String sql = "INSERT INTO cliente(nome, data_nasc, sexo, cpf, endereco, fone) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+            configurarParametros(stmt, c);
+            stmt.execute();
+        }
+    }
+
+    private void configurarParametros(PreparedStatement stmt, Cliente c) throws SQLException {
+        for (int i = 1; i <= NUMERO_COLUNAS; i++) {
+            stmt.setString(i, c.getValorColuna(i));
+        }
+    }
+}
+
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();
