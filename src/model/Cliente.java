@@ -19,16 +19,16 @@ public class Cliente {
     private String endereco;
     private String fone;
 
-    public Cliente(String nome, String dataNasc, String sexo, String cpf, String endereco, String fone) {
-        this.nome = nome;
-        this.dataNasc = dataNasc;
-        this.sexo = sexo;
-        this.cpf = cpf;
-        this.endereco = endereco;
-        this.fone = fone;
+    public Cliente(ClienteData clienteData) {
+        this.nome = clienteData.getNome();
+        this.dataNasc = clienteData.getDataNasc();
+        this.sexo = clienteData.getSexo();
+        this.cpf = clienteData.getCpf();
+        this.endereco = clienteData.getEndereco();
+        this.fone = clienteData.getFone();
     }
     
-     public Cliente() {
+    public Cliente() {
     }  
 
     public int getId() {
@@ -88,3 +88,4 @@ public class Cliente {
     }  
     
 }
+
