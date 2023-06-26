@@ -34,17 +34,28 @@ public class BdMulta {
     /* ----MULTA-> */
     
     // CREATE - Adiciona um registro
-    public void adicionaMulta(Multa m) throws SQLException {
-        // Prepara conexão p/ receber o comando SQL
-        String sql = "INSERT INTO multa(id_cliente, descricao, valor) VALUES(?, ?, ?)";       
-        PreparedStatement stmt;
-        // stmt recebe o comando SQL
-        stmt = this.conexao.prepareStatement(sql);
-        
-        // Seta os valores p/ o stmt, substituindo os "?"        
-        stmt.setString(1, String.valueOf(m.getId_cliente()));
-        stmt.setString(2, m.getDescricao());
-        stmt.setString(3, String.valueOf(m.getValor()));
+  public void adicionaMulta(Multa m) throws SQLException {
+    // Prepara conexão p/ receber o comando SQL
+    String sql = "INSERT INTO multa(id_cliente, descricao, valor) VALUES(?, ?, ?)";
+    PreparedStatement stmt;
+    // stmt recebe o comando SQL
+    stmt = this.conexao.prepareStatement(sql);
+
+    // Seta os valores p/ o stmt, substituindo os "?"
+    stmt.setString(Parametro.ID_CLIENTE, String.valueOf(m.getId_cliente()));
+    stmt.setString(Parametro.DESCRICAO, m.getDescricao());
+    stmt.setString(Parametro.VALOR, String.valueOf(m.getValor()));
+
+    // Resto do código...
+}
+
+// Defina uma classe ou enumeração para representar os parâmetros
+public class Parametro {
+    public static final int ID_CLIENTE = 1;
+    public static final int DESCRICAO = 2;
+    public static final int VALOR = 3;
+}
+
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();
