@@ -451,14 +451,29 @@ public class JFCliente extends javax.swing.JFrame {
     
     // Método p/ validação do formulário
     private boolean verificaDados() {
-        if ((!jT1Nome.getText().equals("")) && (!jT2DataAno.getText().equals("")) 
-                && (!jT3Sexo.getText().equals("")) && (!jT4Cpf.getText().equals(""))
-                && (!jT5Endereco.getText().equals(""))) {            
-            return true;
-        }
-        JOptionPane.showMessageDialog(rootPane, "Dados imcompletos.");
-        return false;
+    String nome = jT1Nome.getText();
+    String dataAno = jT2DataAno.getText();
+    String sexo = jT3Sexo.getText();
+    String cpf = jT4Cpf.getText();
+    String endereco = jT5Endereco.getText();
+
+    if (dadosCompletos(nome, dataAno, sexo, cpf, endereco)) {
+        return true;
     }
+
+    JOptionPane.showMessageDialog(rootPane, "Dados incompletos.");
+    return false;
+}
+
+private boolean dadosCompletos(String... dados) {
+    for (String dado : dados) {
+        if (dado.equals("")) {
+            return false;
+        }
+    }
+    return true;
+}
+
     
     // Método p/ concatenar a data
     private String data() {
