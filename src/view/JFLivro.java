@@ -408,15 +408,19 @@ public class JFLivro extends javax.swing.JFrame {
     }
     
     // Método p/ validação do formulário
-    private boolean verificaDados() {
-        if ((!jT1Exemplar.getText().equals("")) && (!jT2Autor.getText().equals("")) 
-                && (!jT3Edicao.getText().equals("")) && (!jT4Ano.getText().equals(""))
-                && (!jT5Status.getText().equals(""))) {
-            return true;
+  private boolean verificaDados() {
+    JTextField[] campos = {jT1Exemplar, jT2Autor, jT3Edicao, jT4Ano, jT5Status};
+
+    for (JTextField campo : campos) {
+        if (campo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Dados incompletos.");
+            return false;
         }
-        JOptionPane.showMessageDialog(rootPane, "Dados imcompletos.");
-        return false;
     }
+
+    return true;
+}
+
     
     /* <-CADASTRO---- */ 
     
