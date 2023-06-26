@@ -93,21 +93,29 @@ public class BdLivro {
     }
     
     // UPDATE - Atualiza registros
+    public class LivroDAO {
+    private static final int INDICE_EXEMPLAR = 1;
+    private static final int INDICE_AUTOR = 2;
+    private static final int INDICE_EDICAO = 3;
+    private static final int INDICE_ANO = 4;
+    private static final int INDICE_DISPONIBILIDADE = 5;
+    private static final int INDICE_ID_LIVRO = 6;
+
     public void altera(Livro l) throws SQLException {
-        // Prepara conexão p/ receber o comando SQL
-        String sql = "UPDATE livro set exemplar=?, autor=?, edicao=?, ano=?, disponibilidade=?"
-                + "WHERE id_livro=?";
+        // Prepara conexão para receber o comando SQL
+        String sql = "UPDATE livro SET exemplar=?, autor=?, edicao=?, ano=?, disponibilidade=? WHERE id_livro=?";
         // stmt recebe o comando SQL
         PreparedStatement stmt = this.conexao.prepareStatement(sql);
-        
-        // Seta os valores p/ o stmt, substituindo os "?"        
-        stmt.setString(1, l.getExemplar());
-        stmt.setString(2, l.getAutor());
-        stmt.setString(3, String.valueOf(l.getEdicao()));
-        stmt.setString(4, String.valueOf(l.getAno()));
-        stmt.setString(5, l.getDisponibilidade());
+
+        // Seta os valores para o stmt, substituindo os "?"        
+        stmt.setString(INDICE_EXEMPLAR, l.getExemplar());
+        stmt.setString(INDICE_AUTOR, l.getAutor());
+        stmt.setInt(INDICE_EDICAO, l.getEdicao());
+        stmt.setInt(INDICE_ANO, l.getAno());
+        stmt.setString(INDICE_DISPONIBILIDADE, l.getDisponibilidade());
         // Usa o ID como parâmetro de comparação no SQL
-        stmt.setInt(6, l.getId());
+        stmt.setInt(INDICE_ID_LIVRO, l.getId());
+    }
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();
