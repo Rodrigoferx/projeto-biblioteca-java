@@ -580,15 +580,29 @@ public class JFEmprestimo extends javax.swing.JFrame {
     }
     
     // Método p/ validação do formulário
-    private boolean verificaDados() {
-        if ((!jT1IdCliente.getText().equals("")) && (!jT2IdLivro.getText().equals("")) 
-                && (!jT3DataEmprestimo.getText().equals(""))) {
-            return true;
-        }
-        JOptionPane.showMessageDialog(rootPane, "Dados imcompletos.");
+   private boolean verificaDados() {
+    String idCliente = jT1IdCliente.getText();
+    String idLivro = jT2IdLivro.getText();
+    String dataEmprestimo = jT3DataEmprestimo.getText();
+    
+    boolean dadosCompletos = areDadosCompletos(idCliente, idLivro, dataEmprestimo);
+    
+    if (dadosCompletos) {
+        return true;
+    } else {
+        exibirMensagemDeDadosIncompletos();
         return false;
     }
-    
+}
+
+private boolean areDadosCompletos(String idCliente, String idLivro, String dataEmprestimo) {
+    return !idCliente.isEmpty() && !idLivro.isEmpty() && !dataEmprestimo.isEmpty();
+}
+
+private void exibirMensagemDeDadosIncompletos() {
+    JOptionPane.showMessageDialog(rootPane, "Dados incompletos.");
+}
+
     // Pega o campo disponibilidade do livro selecionado
     public String disponibilidadeLivro() {
         // Salva a posição da linha selecionada na tabela de pesquisa
