@@ -18,13 +18,13 @@ public class Livro {
     private short ano;
     private String disponibilidade;
 
-    public Livro(int id, String exemplar, String autor, byte edicao, short ano, String disponibilidade) {
-        this.id = id;
-        this.exemplar = exemplar;
-        this.autor = autor;
-        this.edicao = edicao;
-        this.ano = ano;
-        this.disponibilidade = disponibilidade;
+    public Livro(LivroInfo livroInfo) {
+        this.id = livroInfo.getId();
+        this.exemplar = livroInfo.getExemplar();
+        this.autor = livroInfo.getAutor();
+        this.edicao = livroInfo.getEdicao();
+        this.ano = livroInfo.getAno();
+        this.disponibilidade = livroInfo.getDisponibilidade();
     }
 
     public Livro() {
