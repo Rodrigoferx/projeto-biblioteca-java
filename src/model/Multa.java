@@ -10,14 +10,15 @@ package model;
  * @author paulojp
  */
 public class Multa {
+    
     private int id_multa;
-    private int id_cliente;
+    private int id_emprestimo;
     private String descricao;
     private float valor;
 
-    public Multa(int id_multa, int id_emprestimo, String descricao, float valor, String pagamento) {
+    public Multa(int id_multa, int id_emprestimo, String descricao, float valor) {
         this.id_multa = id_multa;
-        this.id_cliente = id_emprestimo;
+        this.id_emprestimo = id_emprestimo;
         this.descricao = descricao;
         this.valor = valor;
     }
@@ -33,12 +34,12 @@ public class Multa {
         this.id_multa = id_multa;
     }
 
-    public int getId_cliente() {
-        return id_cliente;
+    public int getId_emprestimo() {
+        return id_emprestimo;
     }
 
-    public void setId_cliente(int id_cliente) {
-        this.id_cliente = id_cliente;
+    public void setId_emprestimo(int id_emprestimo) {
+        this.id_emprestimo = id_emprestimo;
     }
 
     public String getDescricao() {
@@ -56,5 +57,4 @@ public class Multa {
     public void setValor(float valor) {
         this.valor = valor;
     }
-    
 }
