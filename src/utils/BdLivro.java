@@ -123,17 +123,17 @@ public class BdLivro {
     }
     
     // UPDATE - Altera a disponibilidade do livro
-    public void alteraDisponibilidadeLivro(Livro l) throws SQLException {
-        // Prepara conexão p/ receber o comando SQL
-        String sql = "UPDATE livro set disponibilidade=?"
-                + "WHERE id_livro=?";
-        // stmt recebe o comando SQL
-        PreparedStatement stmt = this.conexao.prepareStatement(sql);
-        
-        // Seta os valores p/ o stmt, substituindo os "?"  
-        stmt.setString(1, l.getDisponibilidade());
-        // Usa o ID como parâmetro de comparação no SQL
-        stmt.setInt(2, l.getId());
+   public void alteraDisponibilidadeLivro(Livro l) throws SQLException {
+    // Prepara conexão p/ receber o comando SQL
+    String sql = "UPDATE livro set disponibilidade=? WHERE id_livro=?";
+    // stmt recebe o comando SQL
+    PreparedStatement stmt = this.conexao.prepareStatement(sql);
+
+    // Seta os valores p/ o stmt, substituindo os "?"
+    int indice = 1;
+    stmt.setString(indice++, l.getDisponibilidade());
+    // Usa o ID como parâmetro de comparação no SQL
+    stmt.setInt(indice, l.getId());
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();
