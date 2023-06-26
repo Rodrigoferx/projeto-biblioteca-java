@@ -35,17 +35,25 @@ public class BdEmprestimo {
     
     // CREATE - Adiciona um registro
     public void adicionaEmprestimo(Emprestimo e) throws SQLException {
-        // Prepara conexão p/ receber o comando SQL
-        String sql = "INSERT INTO emprestimo(id_cliente, id_livro, data_emprestimo, data_devolucao) VALUES(?, ?, ?, ?)";       
-        PreparedStatement stmt;
-        // stmt recebe o comando SQL
-        stmt = this.conexao.prepareStatement(sql);
-        
-        // Seta os valores p/ o stmt, substituindo os "?"        
-        stmt.setString(1, String.valueOf(e.getId_cliente()));
-        stmt.setString(2, String.valueOf(e.getId_livro()));
-        stmt.setString(3, e.getData_emprestimo());
-        stmt.setString(4, e.getData_devolucao());
+    // Prepara conexão p/ receber o comando SQL
+    String sql = "INSERT INTO emprestimo(id_cliente, id_livro, data_emprestimo, data_devolucao) VALUES(?, ?, ?, ?)";
+    PreparedStatement stmt;
+    // stmt recebe o comando SQL
+    stmt = this.conexao.prepareStatement(sql);
+
+    // Define as constantes ou variáveis para os nomes das colunas
+    final String COLUNA_ID_CLIENTE = "id_cliente";
+    final String COLUNA_ID_LIVRO = "id_livro";
+    final String COLUNA_DATA_EMPRESTIMO = "data_emprestimo";
+    final String COLUNA_DATA_DEVOLUCAO = "data_devolucao";
+
+    // Seta os valores p/ o stmt, utilizando as constantes ou variáveis
+    stmt.setString(COLUNA_ID_CLIENTE, String.valueOf(e.getId_cliente()));
+    stmt.setString(COLUNA_ID_LIVRO, String.valueOf(e.getId_livro()));
+    stmt.setString(COLUNA_DATA_EMPRESTIMO, e.getData_emprestimo());
+    stmt.setString(COLUNA_DATA_DEVOLUCAO, e.getData_devolucao());
+}
+
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();
