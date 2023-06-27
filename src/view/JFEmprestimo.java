@@ -604,13 +604,14 @@ private void exibirMensagemDeDadosIncompletos() {
 }
 
     // Pega o campo disponibilidade do livro selecionado
-    public String disponibilidadeLivro() {
-        // Salva a posição da linha selecionada na tabela de pesquisa
-        int linhaSelecionada = jTableLivro.getSelectedRow();        
-        String status = (String) jTableLivro.getValueAt(linhaSelecionada, 3);  
-        
-        return status;
-    }
+   public static final int COLUNA_STATUS = 3;
+
+public String disponibilidadeLivro() {
+    int linhaSelecionada = jTableLivro.getSelectedRow();
+    String status = (String) jTableLivro.getValueAt(linhaSelecionada, COLUNA_STATUS);
+    return status;
+}
+
     
     // Método p/ verifica se o livro está disponível
     private boolean verificaDisponibilidadeLivro() {
