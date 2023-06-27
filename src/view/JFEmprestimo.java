@@ -733,24 +733,25 @@ public String pegaDataDevolucaoTabela() throws ParseException {
     }
     
     // Mostra a lista de resultado de acordo com o nome passado no campo pesquisa
-    private void mostraPesquisaCliente(List<Cliente> clientes) {
-        // Limpa a tabela sempre que for solicitado uma nova pesquisa
-        limpaTabelaCliente();
-        
-        if (clientes.isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Nenhum registro não encontrado.");
-        } else {            
-            // Linha em branco usada no for, para cada registro é criada uma nova linha 
-            String[] linha = new String[] {null, null, null};
-            // P/ cada registro é criada uma nova linha, cada recebe linha os campos do registro
-            for (int i = 0; i < clientes.size(); i++) {
-                tmCliente.addRow(linha);
-                tmCliente.setValueAt(clientes.get(i).getId(), i, 0);
-                tmCliente.setValueAt(clientes.get(i).getNome(), i, 1);
-                tmCliente.setValueAt(clientes.get(i).getCpf(), i, 2);              
-            }            
+    private static final int COLUNA_ID = 0;
+private static final int COLUNA_NOME = 1;
+private static final int COLUNA_CPF = 2;
+
+private void mostraPesquisaCliente(List<Cliente> clientes) {
+    limpaTabelaCliente();
+
+    if (clientes.isEmpty()) {
+        JOptionPane.showMessageDialog(rootPane, "Nenhum registro encontrado.");
+    } else {
+        for (int i = 0; i < clientes.size(); i++) {
+            tmCliente.addRow(new Object[]{null, null, null});
+            tmCliente.setValueAt(clientes.get(i).getId(), i, COLUNA_ID);
+            tmCliente.setValueAt(clientes.get(i).getNome(), i, COLUNA_NOME);
+            tmCliente.setValueAt(clientes.get(i).getCpf(), i, COLUNA_CPF);
         }
-    }   
+    }
+}
+
     
     // Limpa a tabela de resultados
     private void limpaTabelaCliente() {       
