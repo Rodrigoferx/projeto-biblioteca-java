@@ -648,18 +648,21 @@ public String disponibilidadeLivro() {
     }  
     
     // Exibe a data de devolução no formulário
-    private void mostraDataDevolucao() {        
-        // Recebe a data do sistema
-        Date dataDevolucao = new Date();
-        // Adiciona + 10 à data atual
-        dataDevolucao.setDate(dataDevolucao.getDate() + 7);
-        
-        // Formata a data recebida
-        SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");        
-        String dataDevolucaoFormatada = formataData.format(dataDevolucao);
-                
-        jT4DataDevolucao.setText(dataDevolucaoFormatada);
-    }    
+   private static final int DIAS_PARA_DEVOLUCAO = 7;
+
+private void mostraDataDevolucao() {        
+    // Recebe a data do sistema
+    Date dataDevolucao = new Date();
+    // Adiciona DIAS_PARA_DEVOLUCAO à data atual
+    dataDevolucao.setDate(dataDevolucao.getDate() + DIAS_PARA_DEVOLUCAO);
+    
+    // Formata a data recebida
+    SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");        
+    String dataDevolucaoFormatada = formataData.format(dataDevolucao);
+            
+    jT4DataDevolucao.setText(dataDevolucaoFormatada);
+}
+
     // Retorna a data de devolução, pronta p/ ser salva no BD
     public String salvaDataDevolucao() {
         // Recebe a data do sistema
