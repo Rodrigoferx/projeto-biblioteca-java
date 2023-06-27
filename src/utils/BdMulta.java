@@ -138,33 +138,36 @@ public class Parametro {
     }
     
     // SELECT - Retorna o valor total das multas de um cliente
-    public String totalMultaCliente(String id_cliente) throws SQLException {
-        System.out.println("asdj89asduasd8asd8");
-        // Prepara conexão p/ receber o comando SQL
-        String sql = "SELECT SUM(multa.valor) AS totalMulta FROM multa "
-                + "INNER JOIN cliente ON multa.id_cliente = cliente.id_cliente "
-                + "WHERE cliente.id_cliente = ? "
-                + "GROUP BY cliente.id_cliente;";
-        PreparedStatement stmt = this.conexao.prepareStatement(sql);
-        stmt.setString(1, id_cliente);
+   public String totalMultaCliente(String id_cliente) throws SQLException {
+    String sql = createTotalMultaQuery();
+    PreparedStatement stmt = prepareStatementWithId(sql, id_cliente);
+    float totalMulta = executeQueryAndRetrieveTotalMulta(stmt);
+    stmt.close();
 
-        // Recebe o resultado da consulta SQL
-        ResultSet rs = stmt.executeQuery();
+    return String.valueOf(totalMulta);
+}
 
-        rs.next();
-        String totalMulta = String.valueOf(rs.getFloat("totalMulta"));
+private String createTotalMultaQuery() {
+    return "SELECT SUM(multa.valor) AS totalMulta FROM multa " +
+           "INNER JOIN cliente ON multa.id_cliente = cliente.id_cliente " +
+           "WHERE cliente.id_cliente = ? " +
+           "GROUP BY cliente.id_cliente;";
+}
 
-        System.out.println(totalMulta);
+private PreparedStatement prepareStatementWithId(String sql, String id_cliente) throws SQLException {
+    PreparedStatement stmt = this.conexao.prepareStatement(sql);
+    stmt.setString(1, id_cliente);
+    return stmt;
+}
 
-        // Fecha a conexão com o BD
-        rs.close();
-        stmt.close();
+private float executeQueryAndRetrieveTotalMulta(PreparedStatement stmt) throws SQLException {
+    ResultSet rs = stmt.executeQuery();
+    rs.next();
+    float totalMulta = rs.getFloat("totalMulta");
+    rs.close();
+    return totalMulta;
+}
 
-        // Retorna a lista de registros, gerados pela consulta
-        System.out.println("asdj89asduasd8asd8");
-        return totalMulta;
-
-    }
     
     // DELETE - Apaga registros
     public void remove(int id) throws SQLException {       
