@@ -779,25 +779,30 @@ private void mostraPesquisaCliente(List<Cliente> clientes) {
     }
     
     // Mostra a lista de resultado de acordo com o nome passado no campo pesquisa
-    private void mostraPesquisaEmprestimo(List<Emprestimo> emprestimos) {
-        // Limpa a tabela sempre que for solicitado uma nova pesquisa
-        limpaTabelaEmprestimo();
-        
-        if (emprestimos.isEmpty()) {
-        } else {            
-            // Linha em branco usada no for, para cada registro é criada uma nova linha 
-            String[] linha = new String[] {null, null, null, null, null};
-            // P/ cada registro é criada uma nova linha, cada linha recebe os campos do registro
-            for (int i = 0; i < emprestimos.size(); i++) {
-                tmEmprestimo.addRow(linha);
-                tmEmprestimo.setValueAt(emprestimos.get(i).getId_emprestimo(), i, 0);
-                tmEmprestimo.setValueAt(emprestimos.get(i).getId_cliente(), i, 1);
-                tmEmprestimo.setValueAt(emprestimos.get(i).getId_livro(), i, 2);
-                tmEmprestimo.setValueAt(emprestimos.get(i).getData_emprestimo(), i, 3);
-                tmEmprestimo.setValueAt(emprestimos.get(i).getData_devolucao(), i, 4);              
-            }            
+    private static final int COLUNA_ID_EMPRESTIMO = 0;
+private static final int COLUNA_ID_CLIENTE = 1;
+private static final int COLUNA_ID_LIVRO = 2;
+private static final int COLUNA_DATA_EMPRESTIMO = 3;
+private static final int COLUNA_DATA_DEVOLUCAO = 4;
+
+private void mostraPesquisaEmprestimo(List<Emprestimo> emprestimos) {
+    limpaTabelaEmprestimo();
+
+    if (emprestimos.isEmpty()) {
+        // Nenhum registro encontrado
+    } else {
+        String[] linha = new String[] {null, null, null, null, null};
+        for (int i = 0; i < emprestimos.size(); i++) {
+            tmEmprestimo.addRow(linha);
+            tmEmprestimo.setValueAt(emprestimos.get(i).getId_emprestimo(), i, COLUNA_ID_EMPRESTIMO);
+            tmEmprestimo.setValueAt(emprestimos.get(i).getId_cliente(), i, COLUNA_ID_CLIENTE);
+            tmEmprestimo.setValueAt(emprestimos.get(i).getId_livro(), i, COLUNA_ID_LIVRO);
+            tmEmprestimo.setValueAt(emprestimos.get(i).getData_emprestimo(), i, COLUNA_DATA_EMPRESTIMO);
+            tmEmprestimo.setValueAt(emprestimos.get(i).getData_devolucao(), i, COLUNA_DATA_DEVOLUCAO);
         }
-    } 
+    }
+}
+
     
     // Limpa a tabela de resultados
     private void limpaTabelaEmprestimo() {       
