@@ -678,19 +678,22 @@ private void mostraDataDevolucao() {
     }
     
     // Pega a data de devolução no registro selecionado na tebela de emprestimo
-    public String pegaDataDevolucaoTabela() throws ParseException {
-        
-        int linhaSelecionada = jTableEmprestimo.getSelectedRow();   
-        String dataTabela = (jTableEmprestimo.getValueAt(linhaSelecionada, 4)).toString();
-        
-        SimpleDateFormat formataData = new SimpleDateFormat ("yyyy-MM-dd"); 
-        Date dataDevolucao = new Date();
-        
-        dataDevolucao = formataData.parse(dataTabela); 
-        
+    private static final int COLUNA_DATA_DEVOLUCAO = 4;
+
+public String pegaDataDevolucaoTabela() throws ParseException {
+    int linhaSelecionada = jTableEmprestimo.getSelectedRow();
+    
+    Object valorCelula = jTableEmprestimo.getValueAt(linhaSelecionada, COLUNA_DATA_DEVOLUCAO);
+    
+    if (valorCelula instanceof Date) {
+        Date dataDevolucao = (Date) valorCelula;
+        SimpleDateFormat formataData = new SimpleDateFormat("yyyy-MM-dd");
         return formataData.format(dataDevolucao);
     }
     
+    return null; // Valor inválido ou não é uma data
+}
+
     // Calcula a diferença entre a data prevista para devolução e a data atual
     private long diferencaData() throws ParseException {
         LocalDate atual = LocalDate.now();
